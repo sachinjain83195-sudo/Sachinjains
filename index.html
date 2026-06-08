@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1027,18 +1027,18 @@
             }
         };
 
-        // Photo URLs
+        // Photo URLs (Converted to direct image files to allow native background-image loading)
         const photoUrls = [
-            "PHOTO_1_URL",
-            "PHOTO_2_URL",
-            "PHOTO_3_URL",
-            "PHOTO_4_URL",
-            "PHOTO_5_URL",
-            "PHOTO_6_URL",
-            "PHOTO_7_URL",
-            "PHOTO_8_URL",
-            "PHOTO_9_URL",
-            "PHOTO_10_URL"
+            "https://i.ibb.co/VcjSkbjw/Screenshot-2026-06-08-11-04-55-05-680d03679600f7af0b4c700c6b270fe7.jpg",
+            "https://i.ibb.co/XkbnnzN9/Screenshot-2026-06-08-11-05-25-58-680d03679600f7af0b4c700c6b270fe7.jpg",
+            "https://i.ibb.co/XZs9hcfp/Screenshot-2026-06-08-11-06-14-36-680d03679600f7af0b4c700c6b270fe7.jpg",
+            "https://i.ibb.co/4wM9mcjC/IMG-20260608-110645.jpg",
+            "https://i.ibb.co/bjbN82Gj/IMG-20260608-110704.jpg",
+            "https://i.ibb.co/21k3bW6h/IMG-20260608-110735.jpg",
+            "https://i.ibb.co/M558fVDC/Screenshot-2026-06-08-11-08-14-31-680d03679600f7af0b4c700c6b270fe7.jpg",
+            "https://i.ibb.co/hJ5sCX0G/IMG-20260608-110838.jpg",
+            "https://i.ibb.co/7JrvxdJ0/IMG-20260608-110900.jpg",
+            "https://i.ibb.co/My6wDnbZ/IMG-20260608-110923.jpg"
         ];
         
         // Multi-layered Autoplay Policy Bypass Pipeline
@@ -1489,9 +1489,10 @@
             "Fixed Foundations", "Guarded Secrets", "Unspoken Grace", "The Kenisha Core"
         ];
 
-        function setupPolaroidGallery() {
-            const gallery = document.getElementById('p-gallery');
-            if (gallery.children.length > 0) return;
+        // Dynamic HTML Generator with Async Onload Class Management and Zoom Actions
+        function generateGallery() {
+            const gallery = document.querySelector('.polaroid-gallery');
+            if (!gallery || gallery.children.length > 0) return;
             
             const count = 10;
             const radiusX = isMobile ? 100 : 220;
@@ -1504,21 +1505,34 @@
                 const angle = (i / count) * Math.PI * 2 + (Math.random() * 0.4);
                 const posX = Math.cos(angle) * radiusX + (window.innerWidth / 2) - 100;
                 const posY = Math.sin(angle) * radiusY + (window.innerHeight / 2.8) - 100;
-                const rot = (Math.random() * 30) - 15;
+                
+                // Slight random rotation (-10deg to +10deg)
+                const rot = (Math.random() * 20) - 10;
                 
                 polaroid.style.left = `${posX}px`;
                 polaroid.style.top = `${posY}px`;
                 polaroid.style.transform = `rotate(${rot}deg)`;
                 
+                const placeholder = document.createElement('div');
+                placeholder.className = 'photo-placeholder';
+                
+                const caption = document.createElement('div');
+                caption.className = 'caption';
+                caption.innerText = captionsList[i] || `Moment ${i + 1}`;
+                
+                polaroid.appendChild(placeholder);
+                polaroid.appendChild(caption);
+                
+                // Load images dynamically from direct source mapping arrays
                 const imageUrl = photoUrls[i];
-                const isRealPhoto = imageUrl && imageUrl !== "" && !imageUrl.includes("PHOTO_") && !imageUrl.includes("URL");
-                const styleAttr = isRealPhoto ? `style="background-image: url('${imageUrl}');"` : "";
-                const classAttr = isRealPhoto ? "has-image" : "";
-
-                polaroid.innerHTML = `
-                    <div class="photo-placeholder ${classAttr}" ${styleAttr}></div>
-                    <div class="caption">${captionsList[i]}</div>
-                `;
+                if (imageUrl) {
+                    const tempImg = new Image();
+                    tempImg.src = imageUrl;
+                    tempImg.onload = () => {
+                        placeholder.style.backgroundImage = `url('${imageUrl}')`;
+                        placeholder.classList.add('has-image');
+                    };
+                }
                 
                 polaroid.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1527,6 +1541,10 @@
                 
                 gallery.appendChild(polaroid);
             }
+        }
+
+        function setupPolaroidGallery() {
+            generateGallery();
         }
 
         let currentlyZoomedPolaroid = null;
