@@ -1,0 +1,1762 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Kenisha ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;300;400;500&display=swap');
+
+        :root {
+            --bg-color: #030000;
+            --primary-red: #660000;
+            --bright-red: #ff1a1a;
+            --glow-red: rgba(255, 26, 26, 0.35);
+            --text-light: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --luxury-font: 'Cinzel', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --glass: rgba(15, 5, 5, 0.6);
+            --glass-border: rgba(255, 26, 26, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: var(--body-font);
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: fixed;
+            overscroll-behavior: none;
+        }
+
+        /* Background Ambient Light */
+        .ambient-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vmax;
+            height: 80vmax;
+            background: radial-gradient(circle, rgba(102, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 1;
+            pointer-events: none;
+            animation: pulseGlow 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Particle System Base */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Scene Container Management */
+        .scene-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+        }
+
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .scene.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Cinematic Navigation Button */
+        .nav-btn {
+            position: absolute;
+            bottom: 40px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-family: var(--luxury-font);
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 12px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .nav-btn.show {
+            opacity: 0.7;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .nav-btn:hover {
+            opacity: 1;
+            border-bottom-color: var(--bright-red);
+            letter-spacing: 0.35em;
+            text-shadow: 0 0 10px var(--bright-red);
+        }
+
+        /* Typography Styles */
+        .title-luxury {
+            font-family: var(--luxury-font);
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .text-emotional {
+            font-weight: 200;
+            line-height: 1.8;
+            color: var(--text-muted);
+            max-width: 600px;
+            letter-spacing: 0.05em;
+            font-size: 0.95rem;
+        }
+
+        /* ====================================
+           PAGE 1: EARTH SCAN / REVEAL
+        ==================================== */
+        #scene-1 .scan-interface {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 26, 26, 0.1);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        #scene-1 .scan-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            width: 90%;
+            height: 90%;
+            animation: rotateClockwise 25s linear infinite;
+        }
+
+        #scene-1 .scan-radar {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--glow-red) 0%, transparent 40%, transparent 100%);
+            animation: rotateClockwise 4s linear infinite;
+        }
+
+        #scene-1 .scan-data {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--bright-red);
+            letter-spacing: 2px;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        #scene-1 .reveal-container {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        #scene-1 .reveal-name {
+            font-family: var(--luxury-font);
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--text-light);
+            text-shadow: 0 0 30px var(--bright-red), 0 0 60px rgba(255, 26, 26, 0.2);
+            animation: cinematicPulse 4s infinite ease-in-out;
+            margin-left: 0.3em;
+        }
+
+        #scene-1 .start-journey-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 15px 35px;
+            font-family: var(--luxury-font);
+            color: white;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: 0.5s;
+            backdrop-filter: blur(5px);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        #scene-1 .start-journey-btn:hover {
+            border-color: var(--bright-red);
+            box-shadow: 0 0 20px var(--glow-red);
+            letter-spacing: 6px;
+        }
+
+        @keyframes rotateClockwise { 100% { transform: rotate(360deg); } }
+        @keyframes cinematicPulse {
+            0%, 100% { transform: scale(0.98); opacity: 0.95; filter: blur(0.5px); }
+            50% { transform: scale(1.02); opacity: 1; filter: blur(0px); }
+        }
+
+        /* ====================================
+           PAGE 2: WHY THIS EXISTS
+        ==================================== */
+        .typewriter-box {
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .typewriter-text {
+            border-right: 1px solid var(--bright-red);
+            white-space: pre-wrap;
+            overflow: hidden;
+            animation: blinkCursor 0.8s infinite alternate;
+        }
+
+        @keyframes blinkCursor { from { border-right-color: var(--bright-red); } to { border-right-color: transparent; } }
+
+        /* ====================================
+           PAGE 3: MEMORY DOOR
+        ==================================== */
+        .door-wrapper {
+            perspective: 1200px;
+            width: 200px;
+            height: 320px;
+            position: relative;
+        }
+
+        .door-frame {
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 20px var(--glow-red);
+            background: linear-gradient(135deg, #0d0404 0%, #020000 100%);
+            border-radius: 4px;
+        }
+
+        .door-leaf {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, #1f0505 0%, #0d0202 100%);
+            border: 1px solid rgba(255, 26, 26, 0.2);
+            transition: transform 2.5s cubic-bezier(0.4, 0, 0.1, 1);
+            transform-origin: left center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+        }
+
+        .door-leaf.left { left: 0; transform-origin: left center; border-right: none; }
+        .door-leaf.right {
+            right: 0;
+            transform-origin: right center;
+            border-left: none;
+            background: linear-gradient(-90deg, #1f0505 0%, #0d0202 100%);
+            justify-content: flex-start;
+            padding-left: 10px;
+            padding-right: 0;
+        }
+
+        .door-handle {
+            width: 6px;
+            height: 40px;
+            background: #fff;
+            opacity: 0.3;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        .door-glow-inside {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--bright-red) 0%, transparent 70%);
+            opacity: 0;
+            transform: translateZ(-20px);
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+
+        .door-wrapper.open .door-leaf.left { transform: rotateY(-115deg); }
+        .door-wrapper.open .door-leaf.right { transform: rotateY(115deg); }
+        .door-wrapper.open .door-glow-inside { opacity: 0.6; }
+
+        /* ====================================
+           PAGE 4: THINGS ABOUT KENISHA
+        ==================================== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 550px;
+            perspective: 1000px;
+            margin-top: 20px;
+        }
+
+        .luxury-card {
+            height: 160px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .luxury-card.flipped { transform: rotateY(180deg); }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-front {
+            background: radial-gradient(circle at center, rgba(30,5,5,0.7) 0%, rgba(10,2,2,0.8) 100%);
+            box-shadow: inset 0 0 15px rgba(255, 26, 26, 0.05);
+        }
+
+        .card-front h3 {
+            font-family: var(--luxury-font);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #1c0404 0%, #050000 100%);
+            transform: rotateY(180deg);
+            box-shadow: inset 0 0 20px rgba(255, 26, 26, 0.15);
+        }
+
+        .card-back p {
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-light);
+            font-weight: 300;
+        }
+
+        /* ====================================
+           PAGE 5: MEMORY ROOM (POLAROIDS)
+        ==================================== */
+        .polaroid-gallery {
+            position: relative;
+            width: 100%;
+            height: 70%;
+            max-width: 700px;
+            margin-top: 20px;
+        }
+
+        .polaroid {
+            width: 115px;
+            background: #f4f4f4;
+            padding: 8px 8px 22px 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s, top 0.5s, left 0.5s, width 0.5s, padding 0.5s;
+            color: #222;
+            will-change: transform;
+        }
+
+        .polaroid .photo-placeholder {
+            width: 100%;
+            height: 95px;
+            background: linear-gradient(45deg, #2c0505, #110202);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .polaroid .photo-placeholder::after {
+            content: '❤️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            opacity: 0.25;
+        }
+
+        /* Prevent heart icon overlay when dynamic real photo is loaded */
+        .polaroid .photo-placeholder.has-image::after {
+            display: none !important;
+        }
+
+        .polaroid .caption {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.55rem;
+            text-align: center;
+            margin-top: 8px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .polaroid.fullscreen-zoom {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) rotate(0deg) scale(2.2) !important;
+            z-index: 9999 !important;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            cursor: zoom-out;
+        }
+
+        /* ====================================
+           PAGE 6: HIDDEN NOTES
+        ==================================== */
+        .notes-environment {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            max-width: 500px;
+        }
+
+        .hidden-note-trigger {
+            position: absolute;
+            width: 45px;
+            height: 30px;
+            background: rgba(255,255,255,0.03);
+            border: 1px dashed rgba(255, 26, 26, 0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hidden-note-trigger::before {
+            content: '?';
+            font-family: var(--luxury-font);
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.2);
+        }
+
+        .hidden-note-trigger:hover {
+            background: rgba(255, 26, 26, 0.1);
+            border-color: var(--bright-red);
+            box-shadow: 0 0 12px var(--glow-red);
+        }
+
+        .note-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(3,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200; /* Elevated above nav button */
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            cursor: pointer; /* Suggests clicking background to close */
+        }
+
+        .note-overlay.active {
+            opacity: 1;
+        }
+
+        .paper-note {
+            background: #fffdf0;
+            color: #2b2015;
+            padding: 30px;
+            width: 100%;
+            max-width: 340px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            transform: scale(0.8) rotate(-3deg);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            text-align: left;
+            position: relative;
+            border-radius: 2px;
+            cursor: default;
+        }
+
+        .note-overlay.active .paper-note {
+            transform: scale(1) rotate(0deg);
+        }
+
+        .close-note {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 2px;
+        }
+
+        /* ====================================
+           PAGE 7: SECRET BOOK
+        ==================================== */
+        .book-container {
+            width: 100%;
+            max-width: 340px;
+            height: 380px;
+            perspective: 1200px;
+            margin-top: 15px;
+        }
+
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .book-page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fdfaf2;
+            color: #1a1510;
+            border-radius: 0 5px 5px 0;
+            box-shadow: inset 3px 0 10px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.3);
+            padding: 35px 25px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            backface-visibility: hidden; /* Hides inverse text when turned */
+            -webkit-backface-visibility: hidden;
+        }
+
+        .book-page.cover {
+            background: linear-gradient(135deg, #3d0505 0%, #120101 100%);
+            color: #fff;
+            border-left: 4px solid var(--bright-red);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .book-page h3 {
+            font-family: var(--luxury-font);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .book-page.cover h3 {
+            border: none;
+            color: #fff;
+            text-shadow: 0 0 10px var(--glow-red);
+        }
+
+        .book-page p {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .book-page .page-num {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 0.65rem;
+            opacity: 0.5;
+        }
+
+        .book-page.turned {
+            transform: rotateY(-180deg);
+            pointer-events: none; /* Prevents flipped pages from blocking clicks */
+        }
+
+        /* ====================================
+           PAGE 8: MEMORY CINEMA
+        ==================================== */
+        .cinema-viewport {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .cinema-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            transform: scale(1);
+        }
+
+        .cinema-slide.active {
+            opacity: 0.35;
+            animation: kenBurnsEffect 12s infinite alternate linear;
+        }
+
+        @keyframes kenBurnsEffect {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.12) translate(-1%, -1%); }
+        }
+
+        .cinema-placeholder-1 { background-image: radial-gradient(circle, #3a0606 0%, #000 100%); }
+        .cinema-placeholder-2 { background-image: radial-gradient(circle, #1a021a 0%, #000 100%); }
+        .cinema-placeholder-3 { background-image: radial-gradient(circle, #051429 0%, #000 100%); }
+
+        /* ====================================
+           PAGE 9: STAR ROOM
+        ==================================== */
+        .star-canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .interactive-star {
+            position: absolute;
+            width: 14px; /* Increased tap target size */
+            height: 14px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 12px #fff, 0 0 20px var(--bright-red);
+            animation: pulseStar 2s infinite ease-in-out;
+            transition: transform 0.3s;
+            background-clip: padding-box;
+            border: 3px solid transparent; /* Larger invisible touch area */
+        }
+
+        .interactive-star:hover {
+            transform: scale(1.8);
+        }
+
+        @keyframes pulseStar {
+            0%, 100% { opacity: 0.4; box-shadow: 0 0 8px rgba(255,255,255,0.4); }
+            50% { opacity: 1; box-shadow: 0 0 18px #fff, 0 0 25px var(--bright-red); }
+        }
+
+        .star-message-box {
+            position: absolute;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 15px 20px;
+            border-radius: 6px;
+            max-width: 260px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(8px);
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0.9) translateY(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 60;
+            line-height: 1.5;
+        }
+
+        .star-message-box.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* ====================================
+           PAGE 10: FINAL JOURNEY
+        ==================================== */
+        .floating-elements-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-item {
+            position: absolute;
+            color: rgba(255,255,255,0.15);
+            font-family: var(--luxury-font);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            animation: driftUpward linear infinite;
+        }
+
+        @keyframes driftUpward {
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) rotate(15deg); opacity: 0; }
+        }
+
+        .petal {
+            position: absolute;
+            background: linear-gradient(to bottom right, #ff3344, #990011);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.35;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10px) rotate(0deg); }
+            100% { transform: translateY(105vh) rotate(360deg); }
+        }
+
+        /* ====================================
+           PAGE 11: FINAL ENDING
+        ==================================== */
+        .ending-text-block {
+            opacity: 0;
+            transition: opacity 2s ease;
+            position: absolute;
+            width: 85%;
+            max-width: 600px;
+        }
+
+        .ending-text-block.show { opacity: 1; }
+        .ending-heart { color: var(--bright-red); font-size: 1.5rem; margin-top: 15px; display: inline-block; animation: beat 1.2s infinite alternate; }
+        @keyframes beat { to { transform: scale(1.2); } }
+
+        /* Mobile Utility Optimizations */
+        @media (max-width: 480px) {
+            #scene-1 .reveal-name { font-size: 2.3rem; }
+            .title-luxury { font-size: 1.2rem; }
+            .text-emotional { font-size: 0.85rem; padding: 0 10px; }
+            .cards-grid { grid-template-columns: 1fr; gap: 12px; max-width: 290px; }
+            .luxury-card { height: 105px; }
+            .card-back p { font-size: 0.7rem; }
+            .polaroid { width: 85px; padding: 5px 5px 16px 5px; }
+            .polaroid .photo-placeholder { height: 65px; }
+            /* Adjusted mobile scale from 3.3 to 2.6 to prevent cutoff text */
+            .polaroid.fullscreen-zoom { transform: translate(-50%, -50%) rotate(0deg) scale(2.6) !important; }
+            .book-container { max-width: 280px; height: 340px; }
+            .book-page { padding: 25px 18px; }
+            .book-page p { font-size: 0.75rem; }
+            .interactive-star { width: 16px; height: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-cinema-audio" loop>
+        <source src="MUSIC_URL_HERE" type="audio/mpeg">
+    </audio>
+
+    <div class="ambient-glow"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="scene-container">
+
+        <section class="scene active" id="scene-1">
+            <div class="scan-interface" id="scan-ui">
+                <div class="scan-radar"></div>
+                <div class="scan-circle"></div>
+                <div class="scan-data" id="scan-status">Initializing Scan...</div>
+            </div>
+            <div class="reveal-container" id="reveal-ui">
+                <h1 class="reveal-name">KENISHA ❤️</h1>
+                <p class="text-emotional" style="margin-top:20px; margin-bottom:40px;">Among 8,000,000,000 people, the universe aligned here.</p>
+                <button class="start-journey-btn" onclick="advanceToPage2()">Enter Experience</button>
+            </div>
+        </section>
+
+        <section class="scene" id="scene-2">
+            <h2 class="title-luxury">A Deep Truth</h2>
+            <div class="typewriter-box">
+                <p class="text-emotional typewriter-text" id="tw-target"></p>
+            </div>
+            <button class="nav-btn" id="nav-2" onclick="nextScene()">Continue →</button>
+        </section>
+
+        <section class="scene" id="scene-3">
+            <h2 class="title-luxury" style="margin-bottom:40px;">The Threshold of Safe Spaces</h2>
+            <div class="door-wrapper" id="memory-door" onclick="openDoorSequence()">
+                <div class="door-glow-inside"></div>
+                <div class="door-frame">
+                    <div class="door-leaf left"><div class="door-handle"></div></div>
+                    <div class="door-leaf right"><div class="door-handle"></div></div>
+                </div>
+            </div>
+            <p class="text-emotional" style="margin-top:40px; font-size:0.8rem;">Tap the door to unveil what is beautifully preserved inside.</p>
+        </section>
+
+        <section class="scene" id="scene-4">
+            <h2 class="title-luxury">Elements of Your Essence</h2>
+            <p class="text-emotional" style="font-size:0.8rem;">Four definitions crafted from pure shared dimensions. Flip them.</p>
+            <div class="cards-grid">
+                <div class="luxury-card" onclick="flipCard(this)">
+                    <div class="card-face card-front">
+                        <h3>01. The Sanctuary</h3>
+                    </div>
+                    <div class="card-face card-back">
+                        <p>No matter how chaotic the external world functions, conversing with you brings everything back to total equilibrium. You are absolute home.</p>
+                    </div>
+                </div>
+                <div class="luxury-card" onclick="flipCard(this)">
+                    <div class="card-face card-front">
+                        <h3>02. The Rare Light</h3>
+                    </div>
+                    <div class="card-face card-back">
+                        <p>You carry a level of authenticity that cannot be bought or replicated. You protect your soul with gentle strength.</p>
+                    </div>
+                </div>
+                <div class="luxury-card" onclick="flipCard(this)">
+                    <div class="card-face card-front">
+                        <h3>03. Endless Empathy</h3>
+                    </div>
+                    <div class="card-face card-back">
+                        <p>Your ability to listen, hold structural pain without judging, and truly wish well for people shows an elite nobility of heart.</p>
+                    </div>
+                </div>
+                <div class="luxury-card" onclick="flipCard(this)">
+                    <div class="card-face card-front">
+                        <h3>04. Unbreakable Bond</h3>
+                    </div>
+                    <div class="card-face card-back">
+                        <p>Time, space, and quiet phases mean absolutely nothing. When we communicate, our foundation is immediately locked, solid, and timeless.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-btn" id="nav-4" onclick="nextScene()">Continue →</button>
+        </section>
+
+        <section class="scene" id="scene-5">
+            <h2 class="title-luxury">The Polaroid Archives</h2>
+            <p class="text-emotional" style="font-size:0.8rem;">10 frozen moments of safe spaces. Tap any archive to reveal deep focal points.</p>
+            <div class="polaroid-gallery" id="p-gallery"></div>
+            <button class="nav-btn" id="nav-5" onclick="nextScene()">Continue →</button>
+        </section>
+
+        <section class="scene" id="scene-6">
+            <h2 class="title-luxury">Fragmented Letters</h2>
+            <p class="text-emotional" style="font-size:0.8rem; margin-bottom:20px;">Unspoken gratitude dropped across the matrix. Discover each one.</p>
+            <div class="notes-environment" id="notes-env"></div>
+            
+            <div class="note-overlay" id="n-overlay" onclick="closeNote()">
+                <div class="paper-note" id="p-note-content" onclick="event.stopPropagation()"></div>
+                <div class="close-note">[ Close Note ]</div>
+            </div>
+            <button class="nav-btn" id="nav-6" onclick="nextScene()">Continue →</button>
+        </section>
+
+        <section class="scene" id="scene-7">
+            <h2 class="title-luxury">The Chronicled Ledger</h2>
+            <div class="book-container">
+                <div class="book" id="secret-book" onclick="turnBookPage()">
+                    <div class="book-page cover" style="z-index: 5;">
+                        <h3>Volume of Trust</h3>
+                        <p style="font-size:0.7rem; letter-spacing:2px; margin-top:20px;">TAP TO READ</p>
+                    </div>
+                    <div class="book-page" style="z-index: 4;">
+                        <h3>Chapter I: Genesis</h3>
+                        <p>We started out simple, unaware that we were constructing one of the sturdiest psychological pillars of our lifetime. The trajectory changed permanently once raw truths replaced standard social talk.</p>
+                        <div class="page-num">1</div>
+                    </div>
+                    <div class="book-page" style="z-index: 3;">
+                        <h3>Chapter II: Anchors</h3>
+                        <p>Through silent support networks and sudden deep check-ins, you've systematically anchored my faith in pure, unconditional platonic connections. You ask nothing, yet give everything safely.</p>
+                        <div class="page-num">2</div>
+                    </div>
+                    <div class="book-page" style="z-index: 2;">
+                        <h3>Chapter III: Eternity</h3>
+                        <p>This structural alignment isn't fragile. It represents a lifelong safehouse. Wherever destiny drives your career, your locations, or your evolution—this friendship stands fixed forever.</p>
+                        <div class="page-num">3</div>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-btn" id="nav-7" onclick="nextScene()">Continue →</button>
+        </section>
+
+        <section class="scene" id="scene-8">
+            <div class="cinema-viewport" id="c-viewport">
+                <div class="cinema-slide cinema-placeholder-1 active"></div>
+                <div class="cinema-slide cinema-placeholder-2"></div>
+                <div class="cinema-slide cinema-placeholder-3"></div>
+            </div>
+            <h2 class="title-luxury" style="text-shadow: 0 0 20px #000;">The Living Monologue</h2>
+            <p class="text-emotional" style="color: #fff; text-shadow: 0 20px 20px #000; font-size:1.1rem; max-width:500px; font-weight:300;" id="cinema-subtitles">
+                Let the background tone fill the void. This isn't built for standard social networks; this is a permanent monument.
+            </p>
+            <button class="nav-btn" id="nav-8" onclick="nextScene()">Continue →</button>
+        </section>
+
+        <section class="scene" id="scene-9">
+            <div class="star-canvas-container" id="star-field"></div>
+            <h2 class="title-luxury">The Constellation of Realities</h2>
+            <p class="text-emotional" style="font-size:0.8rem; margin-bottom:30px;">Every illuminated coordinate carries an internal thought. Tap the floating lights.</p>
+            <div class="star-message-box" id="star-box"></div>
+            <button class="nav-btn" id="nav-9" onclick="nextScene()">Continue →</button>
+        </section>
+
+        <section class="scene" id="scene-10">
+            <div class="floating-elements-layer" id="float-layer"></div>
+            <h2 class="title-luxury" style="animation: cinematicPulse 5s infinite;">The Decompression Phase</h2>
+            <p class="text-emotional" style="max-width:500px;">
+                As the kinetic modules within this space begin to slow down completely, breathe in the pure weight of how rare it is to be understood perfectly.
+            </p>
+            <button class="nav-btn" id="nav-10" onclick="nextScene()">Final Phase →</button>
+        </section>
+
+        <section class="scene" id="scene-11">
+            <div class="ending-text-block" id="end-block-1">
+                <p class="title-luxury" style="font-size: 1.4rem;">For Kenisha,</p>
+                <p class="text-emotional" style="margin-top:15px; font-size:1.1rem; color:#fff;">Because some people deserve something far more permanent than a simple template message.</p>
+                <span class="ending-heart">❤️</span>
+            </div>
+            <div class="ending-text-block" id="end-block-2">
+                <h1 class="title-luxury" style="font-size: 2.2rem; color:#fff; text-shadow: 0 0 25px var(--bright-red);">Happy Best Friends Day Kenisha ❤️</h1>
+            </div>
+            <div class="ending-text-block" id="end-block-3">
+                <p class="title-luxury" style="font-size: 1.1rem; letter-spacing: 6px; color: var(--text-muted);">— Sachin</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        let currentSceneIndex = 1;
+        const totalScenes = 11;
+
+        // Structured Scene Interval & Timeout Garbage Collector
+        const timerTracker = {
+            timeouts: [],
+            intervals: [],
+            setTimeout(fn, delay) {
+                const id = setTimeout(fn, delay);
+                this.timeouts.push(id);
+                return id;
+            },
+            setInterval(fn, delay) {
+                const id = setInterval(fn, delay);
+                this.intervals.push(id);
+                return id;
+            },
+            clearAll() {
+                this.timeouts.forEach(clearTimeout);
+                this.intervals.forEach(clearInterval);
+                this.timeouts = [];
+                this.intervals = [];
+            }
+        };
+
+        // Photo URLs
+        const photoUrls = [
+            "PHOTO_1_URL",
+            "PHOTO_2_URL",
+            "PHOTO_3_URL",
+            "PHOTO_4_URL",
+            "PHOTO_5_URL",
+            "PHOTO_6_URL",
+            "PHOTO_7_URL",
+            "PHOTO_8_URL",
+            "PHOTO_9_URL",
+            "PHOTO_10_URL"
+        ];
+        
+        // Multi-layered Autoplay Policy Bypass Pipeline
+        const audio = document.getElementById('bg-cinema-audio');
+        let audioInitialized = false;
+
+        function initAudio() {
+            if (audioInitialized) return;
+            if (audio) {
+                audio.play().then(() => {
+                    audioInitialized = true;
+                }).catch((err) => {
+                    // Muted states or engine logs managed quietly
+                });
+            }
+        }
+
+        function wakeAudio() {
+            if (audio && audio.paused) {
+                audio.play().catch(() => {});
+            }
+        }
+
+        // Catch first physical touchpoint across devices
+        ['click', 'pointerdown', 'touchstart', 'keydown'].forEach(event => {
+            document.addEventListener(event, initAudio, { once: true, passive: true });
+        });
+
+        // Frame rate optimization targets
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let premiumHearts = [];
+        let burstParticles = [];
+        let fireworks = [];
+        let isMobile = window.innerWidth <= 480;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            isMobile = window.innerWidth <= 480;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = -10;
+                this.size = Math.random() * 1.8 + 0.4;
+                this.speedY = Math.random() * 0.4 + 0.15;
+                this.speedX = (Math.random() - 0.5) * 0.15;
+                this.alpha = Math.random() * 0.5 + 0.2;
+                this.color = Math.random() > 0.85 ? '#ff1a1a' : '#ffffff';
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y > canvas.height || this.x < 0 || this.x > canvas.width) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        class HeartParticle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 20;
+                this.size = Math.random() * 8 + 6;
+                this.speedY = -(Math.random() * 0.6 + 0.3);
+                this.alpha = Math.random() * 0.35 + 0.15;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotateSpeed = (Math.random() - 0.5) * 0.015;
+                this.wobble = Math.random() * 100;
+                this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+            }
+            update() {
+                this.y += this.speedY;
+                this.wobble += this.wobbleSpeed;
+                this.x += Math.sin(this.wobble) * 0.3;
+                this.rotation += this.rotateSpeed;
+                if (this.y < -30) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.scale(Math.sin(this.wobble), 1);
+                
+                let s = this.size;
+                ctx.fillStyle = '#ff1a1a';
+                if (!isMobile) {
+                    ctx.shadowColor = 'rgba(255, 26, 26, 0.4)';
+                    ctx.shadowBlur = 8;
+                }
+                
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-s / 2, -s / 2, -s, -s / 3, -s, s / 3);
+                ctx.bezierCurveTo(-s, s, 0, s * 1.5, 0, s * 1.5);
+                ctx.bezierCurveTo(0, s * 1.5, s, s, s, s / 3);
+                ctx.bezierCurveTo(s, -s / 3, s / 2, -s / 2, 0, 0);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        class BurstHeart {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 10 + 6;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = Math.random() * 5 + 3;
+                this.friction = 0.95;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.012;
+                this.color = '#ff1a1a';
+                this.wobble = Math.random() * 100;
+            }
+            update() {
+                this.speed *= this.friction;
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                this.alpha -= this.decay;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.translate(this.x, this.y);
+                ctx.scale(Math.sin(this.wobble), 1);
+                let s = this.size;
+                ctx.fillStyle = this.color;
+                if (!isMobile) {
+                    ctx.shadowColor = 'rgba(255, 26, 26, 0.6)';
+                    ctx.shadowBlur = 10;
+                }
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-s / 2, -s / 2, -s, -s / 3, -s, s / 3);
+                ctx.bezierCurveTo(-s, s, 0, s * 1.5, 0, s * 1.5);
+                ctx.bezierCurveTo(0, s * 1.5, s, s, s, s / 3);
+                ctx.bezierCurveTo(s, -s / 3, s / 2, -s / 2, 0, 0);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        class FireworkExplosionParticle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = Math.random() * 3.5 + 0.5;
+                this.friction = 0.96;
+                this.gravity = 0.07;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.015 + 0.01;
+                this.size = Math.random() * 1.5 + 0.8;
+            }
+            update() {
+                this.speed *= this.friction;
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed + this.gravity;
+                this.alpha -= this.decay;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.alpha);
+                ctx.fillStyle = this.color;
+                if (!isMobile) {
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 4;
+                }
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        class Firework {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.startY = canvas.height + 10;
+                this.targetY = Math.random() * (canvas.height * 0.45) + canvas.height * 0.1;
+                this.y = this.startY;
+                this.speed = Math.random() * 5 + 6;
+                this.exploded = false;
+                this.color = ['#ff1a1a', '#ff4d4d', '#ff8080', '#ffffff', '#e60000', '#ffb3b3'][Math.floor(Math.random() * 6)];
+                this.particles = [];
+            }
+            update() {
+                if (!this.exploded) {
+                    this.y -= this.speed;
+                    if (this.y <= this.targetY) {
+                        this.exploded = true;
+                        this.explode();
+                    }
+                } else {
+                    for (let i = this.particles.length - 1; i >= 0; i--) {
+                        const p = this.particles[i];
+                        p.update();
+                        if (p.alpha <= 0) {
+                            this.particles.splice(i, 1);
+                        }
+                    }
+                    if (this.particles.length === 0) {
+                        this.reset();
+                    }
+                }
+            }
+            explode() {
+                const count = isMobile ? 16 : 30;
+                for (let i = 0; i < count; i++) {
+                    this.particles.push(new FireworkExplosionParticle(this.x, this.y, this.color));
+                }
+            }
+            draw() {
+                if (!this.exploded) {
+                    ctx.save();
+                    ctx.fillStyle = this.color;
+                    if (!isMobile) {
+                        ctx.shadowColor = this.color;
+                        ctx.shadowBlur = 6;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                } else {
+                    this.particles.forEach(p => p.draw());
+                }
+            }
+        }
+
+        function triggerHeartBurst(x, y) {
+            const count = isMobile ? 15 : 30;
+            for(let i=0; i<count; i++) {
+                burstParticles.push(new BurstHeart(x, y));
+            }
+        }
+
+        // Safe allocations adjusted by dynamic device profiling
+        const maxNormalParticles = isMobile ? 30 : 65;
+        const maxPremiumHearts = isMobile ? 8 : 15;
+
+        for (let i = 0; i < maxNormalParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        for (let i = 0; i < maxPremiumHearts; i++) {
+            premiumHearts.push(new HeartParticle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Render ambient base
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Render rising items
+            premiumHearts.forEach(h => {
+                h.update();
+                h.draw();
+            });
+
+            // Clean rendering loops
+            for (let i = burstParticles.length - 1; i >= 0; i--) {
+                const bp = burstParticles[i];
+                bp.update();
+                bp.draw();
+                if (bp.alpha <= 0) {
+                    burstParticles.splice(i, 1);
+                }
+            }
+
+            // Render final coordinates
+            if (currentSceneIndex === 11) {
+                if (fireworks.length === 0) {
+                    for (let i = 0; i < 3; i++) {
+                        fireworks.push(new Firework());
+                    }
+                }
+                fireworks.forEach(f => {
+                    f.update();
+                    f.draw();
+                });
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        function changeScene(targetIndex) {
+            const currentScene = document.getElementById(`scene-${currentSceneIndex}`);
+            const nextScene = document.getElementById(`scene-${targetIndex}`);
+            
+            if (currentScene) currentScene.classList.remove('active');
+            
+            // Discard pending async operations to avoid layout shifts
+            timerTracker.clearAll();
+            
+            currentSceneIndex = targetIndex;
+
+            // Remove nav overlays instantly
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('show'));
+            
+            setTimeout(() => {
+                if (nextScene) {
+                    nextScene.classList.add('active');
+                    executeSceneBehavior(targetIndex);
+                }
+            }, 400);
+        }
+
+        function nextScene() {
+            if (currentSceneIndex < totalScenes) {
+                changeScene(currentSceneIndex + 1);
+            }
+        }
+
+        function showNavigationButton(index) {
+            timerTracker.setTimeout(() => {
+                if (currentSceneIndex === index) {
+                    const btn = document.getElementById(`nav-${index}`);
+                    if (btn) btn.classList.add('show');
+                }
+            }, 2500);
+        }
+
+        function executeSceneBehavior(index) {
+            wakeAudio();
+            switch(index) {
+                case 2: startTypewriterEffect(); break;
+                case 5: setupPolaroidGallery(); break;
+                case 6: setupHiddenNotes(); break;
+                case 8: startCinemaEngine(); break;
+                case 9: setupStarRoom(); break;
+                case 10: setupFinalJourneyDecompression(); break;
+                case 11: 
+                    triggerHeartBurst(window.innerWidth / 2, window.innerHeight * 0.4);
+                    runCinematicCredits(); 
+                    break;
+            }
+        }
+
+        const scanStatus = document.getElementById('scan-status');
+        const phrases = [
+            "Scanning Sector 7G...",
+            "Filtering global parameters...",
+            "Matching frequency variables...",
+            "Isolating 1 specialized profile...",
+            "Target Acquired Safely."
+        ];
+        let phase = 0;
+
+        function runScanEngine() {
+            if (phase < phrases.length) {
+                scanStatus.innerText = phrases[phase];
+                phase++;
+                timerTracker.setTimeout(runScanEngine, 1000);
+            } else {
+                timerTracker.setTimeout(() => {
+                    document.getElementById('scan-ui').style.display = 'none';
+                    document.getElementById('reveal-ui').style.display = 'flex';
+                    initAudio();
+                    wakeAudio();
+                }, 800);
+            }
+        }
+        timerTracker.setTimeout(runScanEngine, 1200);
+
+        function advanceToPage2() {
+            initAudio();
+            wakeAudio();
+            triggerHeartBurst(window.innerWidth / 2, window.innerHeight / 2);
+            changeScene(2);
+        }
+
+        const messageText = "This space was forged intentionally.\n\nIt exists entirely to honor your architecture. We spent standard calendar days communicating in safe loops, and it felt right to assemble a cinematic ecosystem built solely for you to remember how irreplaceable your spirit is to those who truly see you.";
+        
+        function startTypewriterEffect() {
+            const container = document.getElementById('tw-target');
+            container.innerText = "";
+            let charIndex = 0;
+            
+            function type() {
+                if (charIndex < messageText.length) {
+                    container.innerText += messageText.charAt(charIndex);
+                    charIndex++;
+                    timerTracker.setTimeout(type, 45);
+                } else {
+                    showNavigationButton(2);
+                }
+            }
+            timerTracker.setTimeout(type, 800);
+        }
+
+        function openDoorSequence() {
+            const door = document.getElementById('memory-door');
+            if(!door.classList.contains('open')) {
+                door.classList.add('open');
+                timerTracker.setTimeout(() => {
+                    nextScene();
+                }, 2800);
+            }
+        }
+
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+            const totalFlipped = document.querySelectorAll('#scene-4 .luxury-card.flipped').length;
+            if (totalFlipped >= 2) {
+                showNavigationButton(4);
+            }
+        }
+
+        const captionsList = [
+            "Pure Serenity", "Midnight Epiphanies", "Unyielding Alliance", 
+            "Laughter Resonance", "Safe Confessions", "Architectural Truth",
+            "Fixed Foundations", "Guarded Secrets", "Unspoken Grace", "The Kenisha Core"
+        ];
+
+        function setupPolaroidGallery() {
+            const gallery = document.getElementById('p-gallery');
+            if (gallery.children.length > 0) return;
+            
+            const count = 10;
+            const radiusX = isMobile ? 100 : 220;
+            const radiusY = isMobile ? 70 : 120;
+            
+            for (let i = 0; i < count; i++) {
+                const polaroid = document.createElement('div');
+                polaroid.className = 'polaroid';
+                
+                const angle = (i / count) * Math.PI * 2 + (Math.random() * 0.4);
+                const posX = Math.cos(angle) * radiusX + (window.innerWidth / 2) - 100;
+                const posY = Math.sin(angle) * radiusY + (window.innerHeight / 2.8) - 100;
+                const rot = (Math.random() * 30) - 15;
+                
+                polaroid.style.left = `${posX}px`;
+                polaroid.style.top = `${posY}px`;
+                polaroid.style.transform = `rotate(${rot}deg)`;
+                
+                const imageUrl = photoUrls[i];
+                const isRealPhoto = imageUrl && imageUrl !== "" && !imageUrl.includes("PHOTO_") && !imageUrl.includes("URL");
+                const styleAttr = isRealPhoto ? `style="background-image: url('${imageUrl}');"` : "";
+                const classAttr = isRealPhoto ? "has-image" : "";
+
+                polaroid.innerHTML = `
+                    <div class="photo-placeholder ${classAttr}" ${styleAttr}></div>
+                    <div class="caption">${captionsList[i]}</div>
+                `;
+                
+                polaroid.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    togglePolaroidZoom(polaroid, posX, posY, rot);
+                });
+                
+                gallery.appendChild(polaroid);
+            }
+        }
+
+        let currentlyZoomedPolaroid = null;
+        function togglePolaroidZoom(element, origX, origY, origRot) {
+            if (currentlyZoomedPolaroid && currentlyZoomedPolaroid !== element) {
+                currentlyZoomedPolaroid.classList.remove('fullscreen-zoom');
+                currentlyZoomedPolaroid.style.transform = currentlyZoomedPolaroid.dataset.oldTransform;
+                currentlyZoomedPolaroid = null;
+            }
+            
+            if (!element.classList.contains('fullscreen-zoom')) {
+                element.dataset.oldTransform = `rotate(${origRot}deg)`;
+                element.classList.add('fullscreen-zoom');
+                currentlyZoomedPolaroid = element;
+                showNavigationButton(5);
+            } else {
+                element.classList.remove('fullscreen-zoom');
+                element.style.transform = `rotate(${origRot}deg)`;
+                currentlyZoomedPolaroid = null;
+            }
+        }
+
+        // Safely close zoomed images without interrupting button actions
+        document.body.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-btn')) return;
+            if (currentSceneIndex === 5 && currentlyZoomedPolaroid) {
+                currentlyZoomedPolaroid.classList.remove('fullscreen-zoom');
+                currentlyZoomedPolaroid.style.transform = currentlyZoomedPolaroid.dataset.oldTransform;
+                currentlyZoomedPolaroid = null;
+            }
+        });
+
+        const personalLetters = [
+            "Your emotional intelligence operates at levels most people fail to recognize in a full lifetime. Thank you for protecting our raw discussions.",
+            "I noticed that regardless of how drained you might be from everyday processing, you never cheat the people you care about out of real presence.",
+            "It is a magnificent feeling to be completely strange, analytical, and entirely unmasked in conversation without fearing structural collapse.",
+            "Happy Best Friends Day to the person who proves every day that loyalty isn't a complex metric—it's simply second nature to your structure."
+        ];
+
+        function setupHiddenNotes() {
+            const env = document.getElementById('notes-env');
+            if (env.children.length > 0) return;
+            
+            const coordinates = [
+                {t: '20%', l: '15%'}, {t: '75%', l: '20%'},
+                {t: '30%', l: '75%'}, {t: '68%', l: '70%'}
+            ];
+            
+            for(let i = 0; i < 4; i++) {
+                const noteTrigger = document.createElement('div');
+                noteTrigger.className = 'hidden-note-trigger';
+                noteTrigger.style.top = coordinates[i].t;
+                noteTrigger.style.left = coordinates[i].l;
+                
+                noteTrigger.onclick = () => {
+                    openNote(personalLetters[i]);
+                    noteTrigger.style.borderColor = 'rgba(255,255,255,0.1)';
+                    noteTrigger.style.background = 'transparent';
+                    noteTrigger.classList.add('read-note');
+                    
+                    const readCount = document.querySelectorAll('.read-note').length;
+                    if (readCount >= 2) showNavigationButton(6);
+                };
+                env.appendChild(noteTrigger);
+            }
+        }
+
+        function openNote(text) {
+            const overlay = document.getElementById('n-overlay');
+            const target = document.getElementById('p-note-content');
+            target.innerText = text;
+            overlay.style.display = 'flex';
+            overlay.offsetHeight; // Force reflow
+            overlay.classList.add('active');
+        }
+
+        function closeNote() {
+            const overlay = document.getElementById('n-overlay');
+            overlay.classList.remove('active');
+            timerTracker.setTimeout(() => {
+                if (!overlay.classList.contains('active')) {
+                    overlay.style.display = 'none';
+                }
+            }, 500);
+        }
+
+        let currentBookPage = 0;
+        function turnBookPage() {
+            const pages = document.querySelectorAll('.book-page');
+            if (currentBookPage < pages.length - 1) {
+                pages[currentBookPage].classList.add('turned');
+                currentBookPage++;
+                if (currentBookPage >= 2) {
+                    showNavigationButton(7);
+                }
+            } else {
+                for (let i = pages.length - 1; i >= 0; i--) {
+                    pages[i].classList.remove('turned');
+                }
+                currentBookPage = 0;
+            }
+        }
+
+        const subtitles = [
+            "We build defenses to keep out the shallow world...",
+            "But occasionally, an authentic frequency breaks through without breaking down.",
+            "You have been an elite guardian of my peace, Kenisha.",
+            "This cinema loop will reset, but our narrative remains fixed completely."
+        ];
+
+        function startCinemaEngine() {
+            let slideIndex = 0;
+            const slides = document.querySelectorAll('.cinema-slide');
+            const subTarget = document.getElementById('cinema-subtitles');
+            
+            showNavigationButton(8);
+            
+            timerTracker.setInterval(() => {
+                slides[slideIndex].classList.remove('active');
+                slideIndex = (slideIndex + 1) % slides.length;
+                slides[slideIndex].classList.add('active');
+                
+                if (subtitles[slideIndex]) {
+                    subTarget.style.opacity = '0';
+                    timerTracker.setTimeout(() => {
+                        subTarget.innerText = subtitles[slideIndex];
+                        subTarget.style.opacity = '1';
+                    }, 1000);
+                }
+            }, 4000);
+        }
+
+        const starThoughts = [
+            "Your intuition is sharp. Never ignore its guidance.",
+            "You carry your family's weight with hidden grace.",
+            "Your creativity is an asset—give it breathing space.",
+            "Never compromise your parameters for standard approval.",
+            "Sachin appreciates your existence deeper than words reveal.",
+            "Your absolute worst states are safer than most people's best ones."
+        ];
+
+        function setupStarRoom() {
+            const container = document.getElementById('star-field');
+            if (container.children.length > 0) return;
+            
+            for (let i = 0; i < 6; i++) {
+                const star = document.createElement('div');
+                star.className = 'interactive-star';
+                
+                const top = Math.random() * 65 + 15;
+                const left = Math.random() * 75 + 10;
+                
+                star.style.top = `${top}%`;
+                star.style.left = `${left}%`;
+                
+                star.onclick = (e) => {
+                    e.stopPropagation();
+                    const box = document.getElementById('star-box');
+                    box.innerText = starThoughts[i];
+                    box.style.top = `${top + 4}%`;
+                    box.style.left = `${left > 50 ? left - 25 : left + 2}%`;
+                    box.classList.add('visible');
+                    
+                    star.style.background = 'var(--bright-red)';
+                    star.classList.add('activated-star');
+                    
+                    if (document.querySelectorAll('.activated-star').length >= 3) {
+                        showNavigationButton(9);
+                    }
+                };
+                
+                container.appendChild(star);
+            }
+        }
+
+        document.getElementById('scene-9').addEventListener('click', () => {
+            document.getElementById('star-box').classList.remove('visible');
+        });
+
+        const coreConcepts = ["TRUST", "KENISHA", "SACRED", "UNBREAKABLE", "EMPATHY", "TIMELINES", "SACHIN", "LOYALTY"];
+        
+        function setupFinalJourneyDecompression() {
+            const layer = document.getElementById('float-layer');
+            if (layer.children.length > 0) return;
+            
+            for (let i = 0; i < 12; i++) {
+                const el = document.createElement('div');
+                el.className = 'floating-item';
+                el.innerText = coreConcepts[i % coreConcepts.length];
+                el.style.left = `${Math.random() * 85}%`;
+                el.style.animationDuration = `${Math.random() * 8 + 7}s`;
+                el.style.animationDelay = `${Math.random() * 5}s`;
+                layer.appendChild(el);
+            }
+            
+            for(let j = 0; j < 15; j++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.width = `${Math.random() * 12 + 6}px`;
+                petal.style.height = `${Math.random() * 12 + 6}px`;
+                petal.style.left = `${Math.random() * 100}%`;
+                petal.style.animationDuration = `${Math.random() * 6 + 6}s`;
+                petal.style.animationDelay = `${Math.random() * 4}s`;
+                layer.appendChild(petal);
+            }
+            showNavigationButton(10);
+        }
+
+        function runCinematicCredits() {
+            const b1 = document.getElementById('end-block-1');
+            const b2 = document.getElementById('end-block-2');
+            const b3 = document.getElementById('end-block-3');
+            
+            timerTracker.setTimeout(() => { b1.classList.add('show'); }, 1000);
+            timerTracker.setTimeout(() => { b1.classList.remove('show'); }, 6500);
+            
+            timerTracker.setTimeout(() => { b2.classList.add('show'); }, 7800);
+            timerTracker.setTimeout(() => { b2.classList.remove('show'); }, 12500);
+            
+            timerTracker.setTimeout(() => { b3.classList.add('show'); }, 14000);
+            timerTracker.setTimeout(() => {
+                b3.classList.remove('show');
+                timerTracker.setTimeout(() => {
+                    document.body.style.transition = "background-color 4s ease";
+                    document.body.style.backgroundColor = "#000000";
+                    document.querySelectorAll('.ambient-glow, canvas').forEach(el => el.style.display = 'none');
+                }, 1000);
+            }, 18500);
+        }
+
+    </script>
+</body>
+</html>
